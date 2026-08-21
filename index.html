@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tanques</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <h1>Tanques</h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel filters-panel">
+        <h2>Filtros</h2>
+        <div class="filters-grid">
+          <label class="field">
+            <span>Año</span>
+            <select id="filter-year">
+              <option value="">Todos</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Torneo</span>
+            <select id="filter-tournament">
+              <option value="">Todos</option>
+            </select>
+          </label>
+          <div class="field actions">
+            <button id="clear-filters" class="btn-secondary" type="button">Limpiar filtros</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel tabs-panel">
+        <div class="tabs" role="tablist" aria-label="Vistas de estadisticas">
+          <button class="tab is-active" id="tab-individual" data-tab="individual" role="tab" aria-selected="true" aria-controls="view-individual">Individual</button>
+          <button class="tab" id="tab-teams" data-tab="teams" role="tab" aria-selected="false" aria-controls="view-teams">Equipos</button>
+        </div>
+
+        <div id="status" class="status" aria-live="polite">Cargando datos...</div>
+
+        <div id="content" class="content is-hidden">
+          <section id="view-individual" class="tab-view is-active" role="tabpanel" aria-labelledby="tab-individual">
+            <div class="table-wrap">
+              <table id="individual-table" class="stats-table">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="view-teams" class="tab-view" role="tabpanel" aria-labelledby="tab-teams">
+            <div class="table-wrap">
+              <table id="teams-table" class="stats-table">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
