@@ -27,11 +27,11 @@ body {
   color: var(--text);
   background: var(--bg);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 .app-shell {
-  width: min(1480px, calc(100vw - 32px));
+  width: 1480px;
   margin: 20px auto 36px;
   padding-inline: 0;
 }
@@ -140,11 +140,6 @@ button:focus-visible,
   background: #f4f8ff;
 }
 
-.open-full-table {
-  display: none;
-  margin-bottom: 10px;
-}
-
 .tabs {
   display: flex;
   gap: 8px;
@@ -240,68 +235,6 @@ button:focus-visible,
   overscroll-behavior-inline: contain;
   touch-action: pan-x pan-y;
   scrollbar-gutter: stable both-edges;
-}
-
-.full-table-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(17, 24, 39, 0.55);
-  padding: 12px;
-  z-index: 70;
-  display: none;
-}
-
-.full-table-modal.is-open {
-  display: block;
-}
-
-.full-table-sheet {
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  width: min(1400px, 100%);
-  max-height: calc(100vh - 24px);
-  margin: 0 auto;
-  padding: 10px;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 10px;
-}
-
-.full-table-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.full-table-header h2 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.full-table-scroll {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  max-height: calc(100vh - 120px);
-  overflow: auto;
-}
-
-.full-table-scroll .stats-table {
-  width: max-content;
-  min-width: 1180px;
-  table-layout: auto;
-  margin-inline: 0;
-}
-
-.full-table-scroll .stats-table th,
-.full-table-scroll .stats-table td,
-.full-table-scroll .stats-table thead th {
-  white-space: nowrap;
-}
-
-body.modal-open {
-  overflow: hidden;
 }
 
 .stats-table {
@@ -426,55 +359,3 @@ body.modal-open {
   }
 }
 
-@media (max-width: 920px) {
-  .filters-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .actions {
-    grid-column: span 1;
-  }
-}
-
-@media (max-width: 860px) {
-  .open-full-table {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .stats-table {
-    width: max-content;
-    min-width: 1180px;
-    table-layout: auto;
-    margin-inline: 0;
-  }
-
-  .stats-table th,
-  .stats-table td,
-  .stats-table thead th {
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 580px) {
-  .app-shell {
-    width: calc(100vw - 18px);
-    margin-top: 12px;
-  }
-
-  .hero,
-  .panel {
-    padding: 13px;
-  }
-
-  .stats-table th,
-  .stats-table td {
-    padding: 9px;
-    font-size: 0.84rem;
-  }
-
-  .full-table-sheet {
-    padding: 8px;
-  }
-}

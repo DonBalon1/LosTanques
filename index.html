@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1480" />
   <title>Tanques</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,8 +45,6 @@
           <button class="tab" id="tab-teams" data-tab="teams" role="tab" aria-selected="false" aria-controls="view-teams">Equipos</button>
         </div>
 
-        <button id="open-full-table" class="btn-secondary open-full-table" type="button">Ver tabla completa</button>
-
         <div id="status" class="status" aria-live="polite">Cargando datos...</div>
 
         <div id="content" class="content is-hidden">
@@ -74,16 +72,6 @@
         </div>
       </section>
     </main>
-  </div>
-
-  <div id="full-table-modal" class="full-table-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="full-table-title">
-    <div class="full-table-sheet">
-      <div class="full-table-header">
-        <h2 id="full-table-title">Tabla completa</h2>
-        <button id="close-full-table" class="btn-secondary" type="button">Cerrar</button>
-      </div>
-      <div id="full-table-content" class="table-scroll full-table-scroll" role="region" aria-label="Vista completa de tabla" tabindex="0"></div>
-    </div>
   </div>
 
   <script src="script.js"></script>
