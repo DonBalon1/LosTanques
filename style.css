@@ -219,9 +219,9 @@ button:focus-visible,
 }
 
 .table-wrap {
-  overflow-x: auto;
+  display: block;
+  overflow-x: hidden;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   max-width: 100%;
@@ -230,8 +230,8 @@ button:focus-visible,
 
 .stats-table {
   width: 100%;
+  min-width: 0;
   border-collapse: collapse;
-  min-width: 1080px;
   table-layout: fixed;
   background: #fff;
   margin-inline: auto;
@@ -362,11 +362,23 @@ button:focus-visible,
 
 @media (max-width: 860px) {
   .table-wrap {
-    border: 1px solid var(--line);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
   }
 
   .stats-table {
-    min-width: 980px;
+    width: max-content;
+    min-width: 1300px;
+    table-layout: auto;
+    margin-inline: 0;
+  }
+
+  .stats-table th,
+  .stats-table td,
+  .stats-table thead th {
+    white-space: nowrap;
   }
 }
 
