@@ -40,6 +40,10 @@ const el = {
   clearFilters: document.getElementById("clear-filters"),
   individualTable: document.getElementById("individual-table"),
   teamsTable: document.getElementById("teams-table"),
+  openFullTable: document.getElementById("open-full-table"),
+  fullTableModal: document.getElementById("full-table-modal"),
+  closeFullTable: document.getElementById("close-full-table"),
+  fullTableContent: document.getElementById("full-table-content"),
 };
 
 const individualColumns = [
@@ -112,6 +116,86 @@ function bindEvents() {
     el.filterTournament.value = "";
     refreshUI();
   });
+
+  if (el.openFullTable) {
+    el.openFullTable.addEventListener("click", openFullTableModal);
+  }
+
+  if (el.closeFullTable) {
+    el.closeFullTable.addEventListener("click", closeFullTableModal);
+  }
+
+  if (el.fullTableModal) {
+    el.fullTableModal.addEventListener("click", (event) => {
+      if (event.target === el.fullTableModal) {
+        closeFullTableModal();
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeFullTableModal();
+    }
+  });
+}
+
+function isFullTableModalOpen() {
+  return el.fullTableModal && el.fullTableModal.classList.contains("is-open");
+}
+
+function getActiveSourceTable() {
+  return state.activeTab === "teams" ? el.teamsTable : el.individualTable;
+}
+
+function buildFullTableSnapshot() {
+  const sourceTable = getActiveSourceTable();
+  if (!sourceTable) {
+    return null;
+  }
+
+  const clone = document.createElement("table");
+  clone.className = "stats-table";
+
+  const sourceHead = sourceTable.querySelector("thead");
+  const sourceBody = sourceTable.querySelector("tbody");
+
+  clone.innerHTML = `${sourceHead ? sourceHead.outerHTML : "<thead></thead>"}${sourceBody ? sourceBody.outerHTML : "<tbody></tbody>"}`;
+  return clone;
+}
+
+function syncFullTableModalContent() {
+  if (!el.fullTableContent) {
+    return;
+  }
+
+  const snapshotTable = buildFullTableSnapshot();
+  el.fullTableContent.innerHTML = "";
+
+  if (snapshotTable) {
+    el.fullTableContent.appendChild(snapshotTable);
+  }
+}
+
+function openFullTableModal() {
+  if (!el.fullTableModal) {
+    return;
+  }
+
+  syncFullTableModalContent();
+  el.fullTableModal.classList.add("is-open");
+  el.fullTableModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeFullTableModal() {
+  if (!el.fullTableModal) {
+    return;
+  }
+
+  el.fullTableModal.classList.remove("is-open");
+  el.fullTableModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
 }
 
 async function loadData() {
@@ -689,6 +773,10 @@ function refreshUI() {
   });
 
   el.content.classList.remove("is-hidden");
+
+  if (isFullTableModalOpen()) {
+    syncFullTableModalContent();
+  }
 }
 
 function withPointsPositions(rows) {
@@ -971,4 +1059,8 @@ function setActiveTab(tabKey) {
   Object.entries(el.tabViews).forEach(([key, view]) => {
     view.classList.toggle("is-active", key === tabKey);
   });
+
+  if (isFullTableModalOpen()) {
+    syncFullTableModalContent();
+  }
 }

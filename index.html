@@ -45,29 +45,45 @@
           <button class="tab" id="tab-teams" data-tab="teams" role="tab" aria-selected="false" aria-controls="view-teams">Equipos</button>
         </div>
 
+        <button id="open-full-table" class="btn-secondary open-full-table" type="button">Ver tabla completa</button>
+
         <div id="status" class="status" aria-live="polite">Cargando datos...</div>
 
         <div id="content" class="content is-hidden">
           <section id="view-individual" class="tab-view is-active" role="tabpanel" aria-labelledby="tab-individual">
             <div class="table-wrap">
-              <table id="individual-table" class="stats-table">
-                <thead></thead>
-                <tbody></tbody>
-              </table>
+              <div class="table-scroll" role="region" aria-label="Tabla individual" tabindex="0">
+                <table id="individual-table" class="stats-table">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
             </div>
           </section>
 
           <section id="view-teams" class="tab-view" role="tabpanel" aria-labelledby="tab-teams">
             <div class="table-wrap">
-              <table id="teams-table" class="stats-table">
-                <thead></thead>
-                <tbody></tbody>
-              </table>
+              <div class="table-scroll" role="region" aria-label="Tabla de equipos" tabindex="0">
+                <table id="teams-table" class="stats-table">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
             </div>
           </section>
         </div>
       </section>
     </main>
+  </div>
+
+  <div id="full-table-modal" class="full-table-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="full-table-title">
+    <div class="full-table-sheet">
+      <div class="full-table-header">
+        <h2 id="full-table-title">Tabla completa</h2>
+        <button id="close-full-table" class="btn-secondary" type="button">Cerrar</button>
+      </div>
+      <div id="full-table-content" class="table-scroll full-table-scroll" role="region" aria-label="Vista completa de tabla" tabindex="0"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>

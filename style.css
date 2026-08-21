@@ -140,6 +140,11 @@ button:focus-visible,
   background: #f4f8ff;
 }
 
+.open-full-table {
+  display: none;
+  margin-bottom: 10px;
+}
+
 .tabs {
   display: flex;
   gap: 8px;
@@ -220,12 +225,83 @@ button:focus-visible,
 
 .table-wrap {
   display: block;
-  overflow-x: hidden;
-  overflow-y: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   max-width: 100%;
   margin-inline: auto;
+  background: #fff;
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-inline: contain;
+  touch-action: pan-x pan-y;
+  scrollbar-gutter: stable both-edges;
+}
+
+.full-table-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.55);
+  padding: 12px;
+  z-index: 70;
+  display: none;
+}
+
+.full-table-modal.is-open {
+  display: block;
+}
+
+.full-table-sheet {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  width: min(1400px, 100%);
+  max-height: calc(100vh - 24px);
+  margin: 0 auto;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
+
+.full-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.full-table-header h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.full-table-scroll {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+}
+
+.full-table-scroll .stats-table {
+  width: max-content;
+  min-width: 1180px;
+  table-layout: auto;
+  margin-inline: 0;
+}
+
+.full-table-scroll .stats-table th,
+.full-table-scroll .stats-table td,
+.full-table-scroll .stats-table thead th {
+  white-space: nowrap;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .stats-table {
@@ -361,16 +437,15 @@ button:focus-visible,
 }
 
 @media (max-width: 860px) {
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    touch-action: pan-x pan-y;
+  .open-full-table {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .stats-table {
     width: max-content;
-    min-width: 1300px;
+    min-width: 1180px;
     table-layout: auto;
     margin-inline: 0;
   }
@@ -397,5 +472,9 @@ button:focus-visible,
   .stats-table td {
     padding: 9px;
     font-size: 0.84rem;
+  }
+
+  .full-table-sheet {
+    padding: 8px;
   }
 }
