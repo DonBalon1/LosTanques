@@ -219,7 +219,9 @@ button:focus-visible,
 }
 
 .table-wrap {
-  overflow-x: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   max-width: 100%;
@@ -229,7 +231,7 @@ button:focus-visible,
 .stats-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 0;
+  min-width: 1080px;
   table-layout: fixed;
   background: #fff;
   margin-inline: auto;
@@ -360,55 +362,11 @@ button:focus-visible,
 
 @media (max-width: 860px) {
   .table-wrap {
-    border: none;
-    overflow: visible;
-  }
-
-  .stats-table,
-  .stats-table thead,
-  .stats-table tbody,
-  .stats-table tr,
-  .stats-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .stats-table thead {
-    display: none;
-  }
-
-  .stats-table tbody {
-    display: grid;
-    gap: 10px;
-  }
-
-  .stats-table tr {
     border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: 8px;
-    background: #fff;
   }
 
-  .stats-table td {
-    border-bottom: 1px dashed #e8edf5;
-    padding: 8px 6px;
-    display: grid;
-    grid-template-columns: minmax(140px, 42%) 1fr;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .stats-table td::before {
-    content: attr(data-label);
-    color: #5b6b80;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-
-  .stats-table tr td:last-child {
-    border-bottom: none;
+  .stats-table {
+    min-width: 980px;
   }
 }
 
