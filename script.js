@@ -13,6 +13,7 @@ const state = {
       direction: "desc",
       tieBreakers: [
         { key: "points", direction: "desc" },
+        { key: "lifeDiff", direction: "desc" },
         { key: "name", direction: "asc" },
       ],
     },
@@ -21,6 +22,7 @@ const state = {
       direction: "desc",
       tieBreakers: [
         { key: "points", direction: "desc" },
+        { key: "lifeDiff", direction: "desc" },
         { key: "name", direction: "asc" },
       ],
     },
@@ -570,8 +572,15 @@ function calculateTournamentWinners(rows) {
 
   byTournament.forEach((tournamentRows) => {
     const maxPoints = Math.max(...tournamentRows.map((entry) => entry.points));
-    tournamentRows
-      .filter((entry) => entry.points === maxPoints)
+    const pointLeaders = tournamentRows.filter((entry) => entry.points === maxPoints);
+
+    // Si hay empate en puntos, desempata por mayor diferencia de vidas.
+    const maxLifeDiff = Math.max(
+      ...pointLeaders.map((entry) => entry.livesFor - entry.livesAgainst)
+    );
+
+    pointLeaders
+      .filter((entry) => entry.livesFor - entry.livesAgainst === maxLifeDiff)
       .forEach((entry) => winnerTeams.add(`${entry.tournament}:::${entry.teamNormalized}`));
   });
 
@@ -692,7 +701,9 @@ function refreshUI() {
 }
 
 function withPointsPositions(rows) {
-  const scoreKey = (row) => `${Number(row.tournamentsWon) || 0}:::${Number(row.points) || 0}`;
+  const scoreKey = (row) => {
+    return `${Number(row.tournamentsWon) || 0}:::${Number(row.points) || 0}:::${Number(row.lifeDiff) || 0}`;
+  };
 
   const uniqueScoresDesc = Array.from(
     new Set(
@@ -701,14 +712,18 @@ function withPointsPositions(rows) {
       })
     )
   ).sort((a, b) => {
-    const [aWon, aPoints] = a.split(":::").map(Number);
-    const [bWon, bPoints] = b.split(":::").map(Number);
+    const [aWon, aPoints, aLifeDiff] = a.split(":::").map(Number);
+    const [bWon, bPoints, bLifeDiff] = b.split(":::").map(Number);
 
     if (bWon !== aWon) {
       return bWon - aWon;
     }
 
-    return bPoints - aPoints;
+    if (bPoints !== aPoints) {
+      return bPoints - aPoints;
+    }
+
+    return bLifeDiff - aLifeDiff;
   });
 
   const rankByScore = new Map(uniqueScoresDesc.map((score, index) => [score, index + 1]));
