@@ -18,58 +18,97 @@
     </header>
 
     <main>
-      <section class="panel filters-panel">
-        <h2>Filtros</h2>
-        <div class="filters-grid">
-          <label class="field">
-            <span>Año</span>
-            <select id="filter-year">
-              <option value="">Todos</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Torneo</span>
-            <select id="filter-tournament">
-              <option value="">Todos</option>
-            </select>
-          </label>
-          <div class="field actions">
-            <button id="clear-filters" class="btn-secondary" type="button">Limpiar filtros</button>
-          </div>
+      <section class="panel page-tabs-panel">
+        <div class="page-tabs" role="tablist" aria-label="Secciones principales">
+          <button class="page-tab is-active" id="page-tab-tables" data-page="tables" role="tab" aria-selected="true" aria-controls="page-view-tables">Tablas</button>
+          <button class="page-tab" id="page-tab-streaks-records" data-page="streaks-records" role="tab" aria-selected="false" aria-controls="page-view-streaks-records">Rachas y Récords</button>
+          <button class="page-tab" id="page-tab-players" data-page="players" role="tab" aria-selected="false" aria-controls="page-view-players">Jugadores</button>
         </div>
       </section>
 
-      <section class="panel tabs-panel">
-        <div class="tabs" role="tablist" aria-label="Vistas de estadisticas">
-          <button class="tab is-active" id="tab-individual" data-tab="individual" role="tab" aria-selected="true" aria-controls="view-individual">Individual</button>
-          <button class="tab" id="tab-teams" data-tab="teams" role="tab" aria-selected="false" aria-controls="view-teams">Equipos</button>
-        </div>
-
-        <div id="status" class="status" aria-live="polite">Cargando datos...</div>
-
-        <div id="content" class="content is-hidden">
-          <section id="view-individual" class="tab-view is-active" role="tabpanel" aria-labelledby="tab-individual">
-            <div class="table-wrap">
-              <div class="table-scroll" role="region" aria-label="Tabla individual" tabindex="0">
-                <table id="individual-table" class="stats-table">
-                  <thead></thead>
-                  <tbody></tbody>
-                </table>
-              </div>
+      <section id="page-view-tables" class="page-view is-active" role="tabpanel" aria-labelledby="page-tab-tables">
+        <section class="panel filters-panel">
+          <h2>Filtros</h2>
+          <div class="filters-grid">
+            <label class="field">
+              <span>Año</span>
+              <select id="filter-year">
+                <option value="">Todos</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Torneo</span>
+              <select id="filter-tournament">
+                <option value="">Todos</option>
+              </select>
+            </label>
+            <div class="field actions">
+              <button id="clear-filters" class="btn-secondary" type="button">Limpiar filtros</button>
             </div>
+          </div>
+        </section>
+
+        <section class="panel tabs-panel">
+          <div class="tabs" role="tablist" aria-label="Vistas de estadisticas">
+            <button class="tab stats-tab is-active" id="tab-individual" data-tab="individual" role="tab" aria-selected="true" aria-controls="view-individual">Individual</button>
+            <button class="tab stats-tab" id="tab-teams" data-tab="teams" role="tab" aria-selected="false" aria-controls="view-teams">Equipos</button>
+          </div>
+
+          <div id="status" class="status" aria-live="polite">Cargando datos...</div>
+
+          <div id="content" class="content is-hidden">
+            <section id="view-individual" class="tab-view is-active" role="tabpanel" aria-labelledby="tab-individual">
+              <div class="table-wrap">
+                <div class="table-scroll" role="region" aria-label="Tabla individual" tabindex="0">
+                  <table id="individual-table" class="stats-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-teams" class="tab-view" role="tabpanel" aria-labelledby="tab-teams">
+              <div class="table-wrap">
+                <div class="table-scroll" role="region" aria-label="Tabla de equipos" tabindex="0">
+                  <table id="teams-table" class="stats-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </section>
+
+      <section id="page-view-streaks-records" class="page-view" role="tabpanel" aria-labelledby="page-tab-streaks-records">
+        <section class="panel records-panel">
+          <h2>Rachas y Récords</h2>
+
+          <section class="records-section" aria-labelledby="streaks-title">
+            <h3 id="streaks-title">Rachas</h3>
+            <div id="streaks-list" class="record-grid"></div>
           </section>
 
-          <section id="view-teams" class="tab-view" role="tabpanel" aria-labelledby="tab-teams">
-            <div class="table-wrap">
-              <div class="table-scroll" role="region" aria-label="Tabla de equipos" tabindex="0">
-                <table id="teams-table" class="stats-table">
-                  <thead></thead>
-                  <tbody></tbody>
-                </table>
-              </div>
-            </div>
+          <section class="records-section" aria-labelledby="records-title">
+            <h3 id="records-title">Récords</h3>
+            <div id="records-list" class="record-grid"></div>
           </section>
-        </div>
+
+          <section class="records-section" aria-labelledby="team-records-title">
+            <h3 id="team-records-title">Récords de equipo</h3>
+            <div id="team-records-list" class="record-grid"></div>
+          </section>
+        </section>
+      </section>
+
+      <section id="page-view-players" class="page-view" role="tabpanel" aria-labelledby="page-tab-players">
+        <section class="panel players-panel">
+          <h2>Jugadores</h2>
+          <p class="players-subtitle">Perfil individual con resumen de rendimiento, historial y participación reciente.</p>
+          <div id="players-list" class="players-grid"></div>
+        </section>
       </section>
     </main>
   </div>
